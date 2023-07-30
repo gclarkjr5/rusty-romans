@@ -9,10 +9,9 @@ ALL IN RUST...
 ## CLI
 
 - Using Clap
-- run `cargo run --bin cli`
-
+- run `cargo run --bin cli -- --value {roman numeral or integer}`
 
 ## UI
 
 - Using Leptos
-- run `cargo run --bin web`
+- run `trunk serve --open` (requires trunk)
