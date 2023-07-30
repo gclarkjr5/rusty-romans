@@ -9,6 +9,10 @@ edition = "2021"
 clap = { version = "4.3.11", features = ["derive"] }
 leptos = { version = "0.4.6", features = ["csr"] }
 
-# [[bin]]
-# name = "cli"
-# path = "src/bin/cli.rs"
+[[bin]]
+name = "cli"
+path = "src/bin/cli.rs"
+
+[[bin]]
+name = "web"
+path = "src/bin/web.rs"

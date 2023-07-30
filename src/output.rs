@@ -1,12 +1,51 @@
+use std::error::Error;
+use std::fmt;
 use crate::error::InputError;
 
+#[derive(Debug, Clone)]
 pub struct Output {
     pub output: Result<String, InputError>
 }
 
+impl fmt::Display for Output {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match &self.output {
+            Ok(s) => write!(f, "The value is {s}"),
+            Err(e) => write!(f, "The error is {e}"),
+        }
+    }
+}
+
+impl Error for Output {}
+
 impl Output {
     pub fn init() -> Self {
         Output { output: Ok("".to_string()) }
+    }
+
+    pub fn validate_integer_input(&mut self, i: i64) -> &mut Self {
+        // error conditions
+        if i > 3999 {
+            self.output = Err(InputError::TooBigError);
+        } else if i < 1  {
+            self.output = Err(InputError::TooSmallError);
+        } else {
+            self.output = Ok(i.to_string());
+        }
+    
+        self
+    }
+    
+    pub fn validate_roman_numeral_input(&mut self, roman_numeral: &str) -> &mut Self {
+        let valid_roman_numerals: Vec<char> = "MDCLXVI".chars().collect();
+    
+        if roman_numeral.to_uppercase().chars().any(|c| !valid_roman_numerals.contains(&c)) {
+            self.output = Err(InputError::ContainsNotRomanNumeral);
+        } else {
+            self.output = Ok(roman_numeral.to_string());
+        }
+    
+        self
     }
 
     pub fn convert_roman_numeral(&mut self, roman_numeral: &str) -> &mut Self {
@@ -198,4 +237,10 @@ fn get_amount_and_remainder(mut remainder: i64, unit: i64) -> (i64, i64) {
     }
 
     (amount, remainder)
+}
+
+pub fn parse_value_to_integer(value: &str) -> Result<i64, std::num::ParseIntError> {
+
+    value.parse::<i64>()
+
 }

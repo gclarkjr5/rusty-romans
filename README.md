@@ -1,7 +1,10 @@
 # Roman Numeral Converter
 
+ALL IN RUST...
+
 - Convert Roman Numerals to Integers
 - Convert Integers to Roman Numerals
+- Also some error handling, just in case
 
 ## CLI
 
